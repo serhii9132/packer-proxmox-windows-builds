@@ -94,64 +94,58 @@ source "proxmox-iso" "windows" {
 build {
   sources = ["source.proxmox-iso.windows"]
 
-  # provisioner "windows-restart" {}
+  provisioner "windows-restart" {}
 
-  # provisioner "windows-update" {
-  #   search_criteria = "IsInstalled=0"
-  #   filters = [
-  #     "exclude:$_.Title -like '*Driver*'",
-  #     "exclude:$_.Title -like '*Preview*'",
-  #     "include:$true",
-  #   ]
-  #   update_limit = 10
-  # }
+  provisioner "windows-update" {
+    search_criteria = "IsInstalled=0"
+    filters = [
+      "exclude:$_.Title -like '*Driver*'",
+      "exclude:$_.Title -like '*Preview*'",
+      "include:$true",
+    ]
+    update_limit = 10
+  }
 
-  # provisioner "file" {
-  #   content = templatefile("./provision/configs/sysprep/${var.os_type}/unattend.xml.pkrtpl.hcl", {
-  #     admin_password = local.admin_password
-  #     logon_password = local.logon_password
-  #   })
-  #   destination = "C:/Windows/Panther/unattend.xml"
-  # }
+  provisioner "file" {
+    content = templatefile("${path.cwd}/provision/configs/sysprep/desktop/unattend.xml.pkrtpl.hcl", {
+      admin_password = local.admin_password
+      logon_password = local.logon_password
+    })
+    destination = "C:/Windows/Panther/unattend.xml"
+  }
 
-  # provisioner "powershell" {
-  #   inline = [
-  #     "New-Item -ItemType Directory -Force -Path 'C:/Windows/Setup/Scripts'"
-  #   ]
-  # }
+  # Required because the 'file' provisioner cannot create remote directories
+  provisioner "powershell" {
+    inline = [
+      "New-Item -ItemType Directory -Force -Path 'C:/Windows/Setup/Scripts'"
+    ]
+  }
 
-  # provisioner "file" {
-  #   source  = "./provision/scripts/post-build/setupcomplete/init-${var.communicator}.ps1"
-  #   destination = "C:/Windows/Setup/Scripts/init-communicator.ps1"
-  # }
+  provisioner "file" {
+    source  = "${path.cwd}/provision/scripts/sysprep/init-${var.communicator}.ps1"
+    destination = "C:/Windows/Setup/Scripts/init-communicator.ps1"
+  }
 
-  # provisioner "file" {
-  #   source = "./provision/scripts/post-build/setupcomplete/SetupComplete.cmd"
-  #   destination = "C:/Windows/Setup/Scripts/SetupComplete.cmd"
-  # }
+  provisioner "file" {
+    source = "${path.cwd}/provision/scripts/sysprep/SetupComplete.cmd"
+    destination = "C:/Windows/Setup/Scripts/SetupComplete.cmd"
+  }
   
-  # provisioner "powershell" {
-  #   inline = [
-  #     "Write-Host 'Setting WinRM to Manual startup'",
-  #     "Set-Service -Name WinRM -StartupType Manual",
-  #     "Write-Host 'Setting sshd to Manual startup'",
-  #     "Set-Service -Name sshd -StartupType Manual",
-  #     "sc.exe config qemu-ga start= delayed-auto"
-  #   ]
-  # }
+  provisioner "powershell" {
+    scripts = [
+      "${path.cwd}/provision/scripts/post-build/configure-services.ps1",
+      "${path.cwd}/provision/scripts/post-build/cleanup.ps1"
+    ]
+    skip_clean = true
+  }
 
-  # provisioner "powershell" {
-  #   script = "./provision/scripts/post-build/cleanup.ps1"
-  #   skip_clean = true
-  # }
-
-  # provisioner "powershell" {
-  #   inline = [
-  #     "Write-Host 'Running Sysprep'",
-  #     "Start-Process -FilePath 'C:\\Windows\\system32\\Sysprep\\sysprep.exe' -ArgumentList '/generalize /oobe /quiet /quit /mode:vm' -NoNewWindow -Wait",
-  #     "Remove-Item -Path $PSCommandPath -Force",
-  #     "Remove-Item -Path 'C:\\Windows\\Temp\\packer-ps-env-vars-*' -Force"
-  #   ]
-  #   skip_clean = true
-  # }
+  provisioner "powershell" {
+    inline = [
+      "Write-Host 'Running Sysprep'",
+      "Start-Process -FilePath 'C:\\Windows\\system32\\Sysprep\\sysprep.exe' -ArgumentList '/generalize /oobe /quiet /quit /mode:vm' -NoNewWindow -Wait",
+      "Remove-Item -Path $PSCommandPath -Force",
+      "Remove-Item -Path 'C:\\Windows\\Temp\\packer-ps-env-vars-*' -Force"
+    ]
+    skip_clean = true
+  }
 }
