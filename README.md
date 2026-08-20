@@ -36,5 +36,5 @@ PKR_VAR_ssh_private_key_file=/path/to/key/
 ```sh
 make build server22
 make build server25
-make build win11
+make build win-11
 ```
