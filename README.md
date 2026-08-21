@@ -14,8 +14,15 @@ This repository contains configuration files for a fully unattended installation
 - Network adapter type: virtio
 - Communicator: ssh or winrm
 
+### Note
+It is assumed that the Windows Evaluation ISO images and the virtio drivers have already been uploaded to the Proxmox repository under the following names:
+- virtio-win.iso
+- server-22-eval-eng.iso
+- server-25-eval-eng.iso
+- win-11-eval-eng.iso
+
 ### Usage
-1. Create an .env folder in the root of the project, add the specified files listed below with the following content, and assign the necessary values to the environment variables:
+1. Create a .env file in the project root directory with the following content:
  ```sh
 PKR_VAR_pve_node_name=pve
 PKR_VAR_pve_url=https://10.10.10.10:8006/api2/json
