@@ -22,21 +22,21 @@ It is assumed that the Windows Evaluation ISO images and the virtio drivers have
 - win-11-eval-eng.iso
 
 ### Usage
-1. Create a .env file in the project root directory with the following content:
+1. Create a local.pkrvars.hcl file in the project root directory with the following content:
  ```sh
-PKR_VAR_pve_node_name=pve
-PKR_VAR_pve_url=https://10.10.10.10:8006/api2/json
-PKR_VAR_pve_username=root@pam!packer
-PKR_VAR_pve_token=1111111111-2222-3333-a0de-a93224fdfsds
-PKR_VAR_net_bridge=vmbr1
-PKR_VAR_storage_pool_disks=local2
+pve_node_name=pve
+pve_url=https://10.10.10.10:8006/api2/json
+pve_username=root@pam!packer
+pve_token=1111111111-2222-3333-a0de-a93224fdfsds
+net_bridge=vmbr1
+storage_pool_disks=local2
 
-PKR_VAR_communicator=ssh # or winrm
+communicator=ssh # or winrm
 
-PKR_VAR_winrm_password=Password1111
+winrm_password=Password1111
 
-PKR_VAR_ssh_pub_key='"ssh-rsa AAAAB3NzaC1yc2EA...... "'
-PKR_VAR_ssh_private_key_file=/path/to/key/
+ssh_pub_key='"ssh-rsa AAAAB3NzaC1yc2EA...... "'
+ssh_private_key_file=/path/to/key/
  ```
  
 2. Run the following commands:
