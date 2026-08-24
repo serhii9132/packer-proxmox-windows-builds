@@ -6,9 +6,9 @@ This repository contains configuration files for a fully unattended installation
 - Windows 11 Evaluation
 
 ### Template details:
-- CPU: 2 cores/1 socket, host mode
+- CPU: 4 cores/1 socket, host mode
 - Disk: 100 Gb, qcow2
-- RAM: 4 Gb
+- RAM: 6 Gb
 - SCSI controller: virtio-scsi-single
 - Firmware: EFI
 - Network adapter type: virtio

@@ -4,14 +4,14 @@ locals {
 
   cd_content = merge(
     {
-      "/autounattend.xml" = templatefile("./${var.cd_label}/autounattend.xml.pkrtpl.hcl", {
+      "/autounattend.xml" = templatefile("${path.cwd}/autounattend/${var.vm_name}/autounattend.xml.pkrtpl.hcl", {
         admin_password = local.admin_password
         logon_password = local.logon_password
         communicator   = var.communicator
       })
     },
     var.communicator == "ssh" ? {
-      "/configure-ssh.ps1" = templatefile("../../provision/scripts/pre-build/configure-ssh.ps1.pkrtpl.hcl", {
+      "/configure-ssh.ps1" = templatefile("${path.cwd}/provision/scripts/pre-build/configure-ssh.ps1.pkrtpl.hcl", {
         pub_key = var.ssh_pub_key
       })
     } : {}
@@ -27,14 +27,44 @@ locals {
   )
 }
 
+variable "pve_url" {
+    type = string
+}
+
+variable "insecure_skip_tls_verify" {
+    type = bool
+}
+
+variable "pve_username" {
+    type = string
+}
+
+variable "pve_token" {
+    type = string
+}
+
+variable "pve_node_name" {
+    type = string
+}
+
+variable "storage_pool_iso" {
+    type = string
+}
+
+variable "storage_pool_disks" {
+    type = string
+}
+
 variable "vm_name" {
     type = string
-    default = "win-11"
 }
 
 variable "os_version" {
     type = string
-    default = "win11"
+}
+
+variable "os_type" {
+    type = string
 }
 
 variable "cpu_type" {
@@ -77,6 +107,12 @@ variable "bios" {
     type = string
 }
 
+variable "is_tpm_enable" {
+    type = bool
+    description = "Enable TPM module (Windows 11 is required)"
+    default = false
+}
+
 variable "disk_size" {
     type = string
 }
@@ -105,7 +141,11 @@ variable "cd_label" {
     type = string
 }
 
-variable "name_iso_virtio_drivers" {
+variable "iso_windows_image" {
+    type = string
+}
+
+variable "iso_virtio_drivers" {
     type = string
 }
 
@@ -115,4 +155,44 @@ variable "boot_wait" {
 
 variable "boot_command" {
   type = list(string)
+}
+
+variable "ssh_username" {
+    type = string
+}
+
+variable "ssh_timeout" {
+    type = string
+}
+
+variable "ssh_private_key_file" {
+    type = string
+}
+
+variable "ssh_pub_key" {
+    type = string
+}
+
+variable "winrm_username" {
+    type = string
+}
+
+variable "winrm_password" {
+    type = string
+}
+
+variable "winrm_timeout" {
+    type = string
+}
+
+variable "winrm_port" {
+    type = number
+}
+
+variable "is_winrm_use_ssl" {
+    type = bool
+}
+
+variable "is_winrm_insecure" {
+    type = bool
 }

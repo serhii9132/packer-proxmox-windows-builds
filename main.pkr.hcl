@@ -34,6 +34,11 @@ source "proxmox-iso" "windows" {
     efi_storage_pool        = var.storage_pool_disks
   }
 
+  tpm_config {
+    tpm_storage_pool        = var.is_tpm_enable ? var.storage_pool_disks : null
+    tpm_version             = var.is_tpm_enable ? "v2.0" : null
+  }
+
   disks {
     storage_pool            = var.storage_pool_disks
     disk_size               = var.disk_size
@@ -51,7 +56,7 @@ source "proxmox-iso" "windows" {
   boot_iso {
     type                    = var.bus_type_cd_dev
     unmount                 = var.is_iso_unmount
-    iso_file                = "${var.storage_pool_iso}:iso/server-22-eval-eng.iso"
+    iso_file                = "${var.storage_pool_iso}:iso/${var.iso_windows_image}"
   }
 
   additional_iso_files { 
@@ -67,7 +72,7 @@ source "proxmox-iso" "windows" {
   additional_iso_files { 
     type                    = var.bus_type_cd_dev
     index                   = 2
-    iso_file                = "${var.storage_pool_iso}:iso/${var.name_iso_virtio_drivers}"
+    iso_file                = "${var.storage_pool_iso}:iso/${var.iso_virtio_drivers}"
     unmount                 = var.is_iso_unmount
   }
 
@@ -102,7 +107,7 @@ build {
   }
 
   provisioner "file" {
-    content = templatefile("${path.cwd}/provision/configs/sysprep/server/unattend.xml.pkrtpl.hcl", {
+    content = templatefile("${path.cwd}/provision/configs/sysprep/${var.os_type}/unattend.xml.pkrtpl.hcl", {
       admin_password = local.admin_password
       logon_password = local.logon_password
     })

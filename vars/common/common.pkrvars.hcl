@@ -4,9 +4,9 @@ storage_pool_disks = "local"
 storage_pool_iso = "local"
 
 cpu_type = "host"
-cpu_cores = 2
+cpu_cores = 4
 cpu_sockets = 1
-memory = 4096
+memory = 6144
 scsi_controller = "virtio-scsi-single"
 is_qemu_agent_enable = true
 
@@ -24,7 +24,7 @@ net_vlan_tag = ""
 
 is_iso_unmount = true
 cd_label = "cidata"
-name_iso_virtio_drivers = "virtio-win.iso"
+iso_virtio_drivers = "virtio-win.iso"
 
 winrm_username = "Administrator"
 winrm_timeout = "2h"
