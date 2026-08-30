@@ -31,6 +31,7 @@ winrm_timeout = "2h"
 winrm_port = 5986
 is_winrm_use_ssl = true
 is_winrm_insecure = true
+is_winrm_use_ntlm = true
 
 ssh_username = "Administrator"
 ssh_timeout = "2h"

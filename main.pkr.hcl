@@ -82,6 +82,7 @@ source "proxmox-iso" "windows" {
   winrm_port                = var.winrm_port
   winrm_use_ssl             = var.is_winrm_use_ssl
   winrm_insecure            = var.is_winrm_insecure
+  winrm_use_ntlm            = var.is_winrm_use_ntlm
 
   ssh_username              = var.ssh_username
   ssh_private_key_file      = var.ssh_private_key_file

@@ -196,3 +196,7 @@ variable "is_winrm_use_ssl" {
 variable "is_winrm_insecure" {
     type = bool
 }
+
+variable "is_winrm_use_ntlm" {
+    type = bool
+}
