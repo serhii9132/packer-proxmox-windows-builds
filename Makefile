@@ -10,7 +10,7 @@ ifneq ($(LOCAL_VARS),)
 	PACKER_CMD += -var-file=$(LOCAL_VARS)
 endif
 
-.PHONY: init_logs $(TARGETS)
+.PHONY: init_logs $(TARGETS) clean
 
 init_logs:
 	@mkdir -p $(LOG_DIR)
@@ -19,3 +19,6 @@ $(TARGETS): init_logs
 	@packer init .
 	@export PACKER_LOG_PATH="$(LOG_DIR)/$@_build_$(LOG_TIMESTAMP).log" PACKER_LOG=1 && \
 	$(PACKER_CMD) -var-file=vars/os/$@.pkrvars.hcl .
+
+clean:
+	@rm -rf logs
