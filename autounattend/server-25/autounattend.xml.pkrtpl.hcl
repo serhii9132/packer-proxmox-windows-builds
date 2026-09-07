@@ -15,13 +15,11 @@
             <DiskConfiguration>
                 <Disk wcm:action="add">
                     <CreatePartitions>
-                        <!-- Windows RE Tools partition -->
                         <CreatePartition wcm:action="add">
                             <Order>1</Order>
                             <Type>EFI</Type>
                             <Size>512</Size>
                         </CreatePartition>
-                        <!-- Windows partition -->
                         <CreatePartition wcm:action="add">
                             <Order>2</Order>
                             <Type>MSR</Type>
@@ -90,6 +88,7 @@
                     <PlainText>false</PlainText>
                 </Password>
                 <Enabled>true</Enabled>
+                <LogonCount>1</LogonCount>
                 <Username>Administrator</Username>
             </AutoLogon>
             <FirstLogonCommands>
@@ -111,11 +110,6 @@
             </FirstLogonCommands>
             <OOBE>
                 <HideEULAPage>true</HideEULAPage>
-                <HideLocalAccountScreen>true</HideLocalAccountScreen>
-                <HideOEMRegistrationScreen>true</HideOEMRegistrationScreen>
-                <HideOnlineAccountScreens>true</HideOnlineAccountScreens>
-                <HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
-                <ProtectYourPC>1</ProtectYourPC>
             </OOBE>
             <UserAccounts>
                 <AdministratorPassword>

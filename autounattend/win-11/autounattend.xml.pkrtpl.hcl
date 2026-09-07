@@ -15,13 +15,11 @@
             <DiskConfiguration>
                 <Disk wcm:action="add">
                     <CreatePartitions>
-                        <!-- Windows RE Tools partition -->
                         <CreatePartition wcm:action="add">
                             <Order>1</Order>
                             <Type>EFI</Type>
                             <Size>512</Size>
                         </CreatePartition>
-                        <!-- Windows partition -->
                         <CreatePartition wcm:action="add">
                             <Order>2</Order>
                             <Type>MSR</Type>
@@ -121,10 +119,9 @@
             </FirstLogonCommands>
             <OOBE>
                 <HideEULAPage>true</HideEULAPage>
-                <HideOEMRegistrationScreen>true</HideOEMRegistrationScreen>
                 <HideOnlineAccountScreens>true</HideOnlineAccountScreens>
+                <ProtectYourPC>3</ProtectYourPC>
                 <HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
-                <ProtectYourPC>1</ProtectYourPC>
             </OOBE>
             <UserAccounts>
                 <AdministratorPassword>
@@ -132,7 +129,7 @@
                     <PlainText>false</PlainText>
                 </AdministratorPassword>
             </UserAccounts>
-            <RegisteredOwner />
+            <RegisteredOwner/>
         </component>
         <component name="Microsoft-Windows-International-Core" processorArchitecture="wow64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <InputLocale>en-US</InputLocale>
