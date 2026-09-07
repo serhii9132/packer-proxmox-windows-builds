@@ -5,7 +5,7 @@ packer {
       source  = "github.com/hashicorp/proxmox"
     }
     windows-update = {
-      version = "0.18.1"
+      version = "0.18.4"
       source  = "github.com/rgl/windows-update"
     }
   }
@@ -102,13 +102,14 @@ build {
     filters = [
       "exclude:$_.Title -like '*Driver*'",
       "exclude:$_.Title -like '*Preview*'",
+      "exclude:$_.Title -like '*KB5007651*'",
       "include:$true",
     ]
     update_limit = 10
   }
 
   provisioner "file" {
-    content = templatefile("${path.cwd}/provision/configs/sysprep/${var.os_type}/unattend.xml.pkrtpl.hcl", {
+    content = templatefile("${path.cwd}/provision/configs/sysprep/${var.vm_name}/unattend.xml.pkrtpl.hcl", {
       admin_password = local.admin_password
       logon_password = local.logon_password
     })

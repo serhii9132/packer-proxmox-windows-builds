@@ -63,10 +63,6 @@ variable "os_version" {
     type = string
 }
 
-variable "os_type" {
-    type = string
-}
-
 variable "cpu_type" {
     type = string
 }

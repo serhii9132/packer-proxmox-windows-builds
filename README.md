@@ -41,7 +41,7 @@ ssh_private_key_file=/path/to/key/
  
 2. Run the following commands:
 ```sh
-make build server22
-make build server25
+make build server-22
+make build server-25
 make build win-11
 ```
