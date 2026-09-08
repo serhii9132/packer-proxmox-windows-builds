@@ -88,6 +88,7 @@
                     <PlainText>false</PlainText>
                 </Password>
                 <Enabled>true</Enabled>
+                <LogonCount>1</LogonCount>
                 <Username>Administrator</Username>
             </AutoLogon>
             <FirstLogonCommands>
@@ -115,6 +116,12 @@
                     <Order>5</Order>
                     <Description>Configure communicator</Description>
                     <CommandLine>powershell -ExecutionPolicy Bypass -File E:\configure-${communicator}.ps1</CommandLine>
+                </SynchronousCommand>
+                <!-- https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/microsoft-windows-shell-setup-autologon-logoncount -->
+                <SynchronousCommand wcm:action="add">
+                    <Order>6</Order>
+                    <Description>Fix LogonCount bug</Description>
+                    <CommandLine>cmd.exe /c reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v AutoLogonCount /t REG_DWORD /d 0 /f</CommandLine>
                 </SynchronousCommand>
             </FirstLogonCommands>
             <OOBE>
