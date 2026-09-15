@@ -5,7 +5,7 @@ packer {
       source  = "github.com/hashicorp/proxmox"
     }
     windows-update = {
-      version = "0.18.1"
+      version = "0.18.4"
       source  = "github.com/rgl/windows-update"
     }
   }
@@ -111,7 +111,6 @@ build {
   provisioner "file" {
     content = templatefile("${path.cwd}/provision/configs/sysprep/${var.vm_name}/unattend.xml.pkrtpl.hcl", {
       admin_password = local.admin_password
-      logon_password = local.logon_password
     })
     destination = "C:/Windows/Panther/unattend.xml"
   }
