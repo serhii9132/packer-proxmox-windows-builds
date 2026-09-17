@@ -5,7 +5,7 @@ packer {
       source  = "github.com/hashicorp/proxmox"
     }
     windows-update = {
-      version = "0.18.4"
+      version = "0.18.1"
       source  = "github.com/rgl/windows-update"
     }
   }
